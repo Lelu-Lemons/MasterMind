@@ -1,0 +1,30 @@
+﻿@page "/"
+@using Mastermind.Components.Views
+@using Mastermind.Components.ViewModels
+@inherits MainPageVM
+
+<MudContainer Fixed="true" Style="
+display: flex; background-color: rgba(0,128,0, 0.8); 
+height: 70vh; align-self: center;
+">
+	<MudStack Spacing="1" Style="width: 100%;">
+		<MudSpacer />
+		<MudStack Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
+			@if (gameState.choiceSelection.Count > 1)
+			{
+				<MudSpacer />
+				<CurrentCombo Combo="@(gameState.choiceSelection.Values.ToArray())" colorDictionary="gameState.colorDictionary" />
+				<MudSpacer />
+			}
+		</MudStack>
+	@for (int i = 0; i < 7; i++)
+	{
+		<MudStack Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
+			<MudSpacer />
+			<ComboPicked Combo="@([0,0,0,0])" colorDictionary="gameState.colorDictionary"/>
+			<MudSpacer />
+		</MudStack>
+	}
+	<MudSpacer />
+	</MudStack>
+</MudContainer>

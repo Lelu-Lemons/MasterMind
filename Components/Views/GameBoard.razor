@@ -1,0 +1,42 @@
+﻿@using Components.ViewModels
+@inherits GameBoardVM
+
+
+<MudContainer Style="border: 4px ridge darkblue; height: 100%; background-color: rgba(47, 79, 79, 0.7); opacity: 1; margin-top: 12vh;">
+	<MudStack Row="true" Spacing="0">
+		<MudStack Spacing="0" >
+			<MudStack Row="true" Style="margin-top: 10px;" Justify="Justify.Center" Spacing="2">
+				<MudIconButton 
+					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(1)"
+					Style="background-color: darkcyan; color:aqua;" />
+				<MudIconButton 
+					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(2)"
+					Style="background-color: rgb(154, 156, 33); color: rgb(233, 235, 73);" />
+				<MudIconButton 
+					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(3)"
+					Style="background-color: rgb(140, 52, 55); color: rgb(250, 120, 125);" />
+				<MudIconButton 
+					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(4)"
+					Style="background-color: rgb(108, 41, 135); color:rgb(213, 120, 250);" />
+			</MudStack>
+			<MudStack Row="true" Style="margin-top: 10px; margin-bottom: 10px;" Justify="Justify.Center" Spacing="2">
+				<MudIconButton 
+					DisableRipple="true"  Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(5)"
+					Style="background-color: rgb(156, 54, 141); color:rgb(247, 116, 228);" />
+				<MudIconButton 
+					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(6)"
+					Style="background-color: rgb(17, 2, 158); color: rgb(59, 38, 255);" />
+				<MudIconButton 
+					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(7)"
+					Style="background-color: rgb(42, 130, 54); color: rgb(100, 245, 120);" />
+				<MudIconButton 
+					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(8)"
+					Style="background-color: rgb(163, 109, 8); color: rgb(255, 179, 36);" />
+			</MudStack>
+		</MudStack>
+		<MudStack Spacing="6" Style="margin-left: 15px;" AlignItems="AlignItems.Center" Justify="Justify.Center">
+			
+			<MudIconButton Icon="@Icons.Material.Filled.Check" Size="Size.Small" Variant="Variant.Filled" Color="Color.Primary" />
+		</MudStack>
+	</MudStack>
+</MudContainer>

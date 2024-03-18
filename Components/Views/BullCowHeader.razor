@@ -1,0 +1,70 @@
+﻿@using Components.ViewModels
+@inherits BullCowVM
+
+<MudStack 
+    Style="border: 2px groove darkgreen; margin-top: 1.5vh; padding: 4px;" 
+    Row="true" AlignItems="AlignItems.Center" Justify="Justify.Center"
+>
+    <MudBadge 
+        Bordered="false" @onclick="ToggleBullOpen" @onmouseout="@ToggleBullClose" 
+        Icon="@Icons.Material.Filled.QuestionMark" Overlap="true" Color="Color.Info"
+    >
+        <MudAvatar Color="Color.Success">
+            <MudIcon Color="Color.Dark" Icon="@Icons.Material.TwoTone.LockOpen" />
+        </MudAvatar>
+        <MudPopover
+            Duration="200" Open="BullInfoOpen" Style="width: 25%; border-radius: 50%;" 
+            AnchorOrigin="Origin.TopRight" TransformOrigin="Origin.TopRight"
+        >
+            <MudStack 
+                Row="true" Style="background-color: rgba(56, 56, 56, 1); border-radius: 15%;" 
+                Justify="Justify.Center" AlignItems="AlignItems.Start"
+            >
+                <MudText 
+                    Align="Align.Center" Class="ma-2" Color="Color.Info" GutterBottom="true" 
+                    Typo="Typo.caption"
+                >
+                    Amount Guessed correct, and in the correct order
+                </MudText>
+            </MudStack>
+
+        </MudPopover>
+    </MudBadge>
+    <MudPaper Elevation="12" Height="5vh" Width="10vw" />
+</MudStack>
+
+<MudSpacer />
+
+<MudStack 
+    Style="border: 2px groove darkgreen; margin-top: 1.5vh; padding: 4px;" 
+    Row="true" AlignItems="AlignItems.Center"
+>
+    <MudBadge 
+        Bordered="false" @onclick="ToggleCowOpen" @onmouseout="@ToggleCowClose" 
+        Icon="@Icons.Material.Filled.QuestionMark" Overlap="true" Color="Color.Info"
+    >
+        <MudAvatar Color="Color.Warning">
+            <MudIcon Color="Color.Dark" Icon="@Icons.Material.TwoTone.Lock" />
+        </MudAvatar>
+        <MudPopover 
+            Duration="200" Open="CowInfoOpen" Style="width: 25%; border-radius: 50%;" 
+            AnchorOrigin="Origin.TopRight" TransformOrigin="Origin.TopRight"
+        >
+            <MudStack 
+                Row="true" Style="background-color: rgba(56, 56, 56, 1); border-radius: 15%;" 
+                Justify="Justify.Center" AlignItems="AlignItems.Start"
+            >
+                <MudText 
+                    Align="Align.Center" Class="ma-2" Color="Color.Info" 
+                    GutterBottom="true" Typo="Typo.caption"
+                >
+                    Amount Guessed correct, and in the correct order
+                </MudText>
+            </MudStack>
+
+        </MudPopover>
+    </MudBadge>
+    <MudPaper Elevation="12" Height="5vh" Width="10vw" Style="opacity: 1;" />
+
+</MudStack>
+

@@ -1,0 +1,12 @@
+﻿body {
+
+}
+
+.main-background {
+    background-image: url("./Images/cyber-background.jpg");
+    background-size: 100vw 100vh;
+    background-repeat:space;
+    overflow: hidden;
+    overscroll-behavior: none;
+
+}

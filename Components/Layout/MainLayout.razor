@@ -1,0 +1,38 @@
+﻿
+@inherits LayoutComponentBase
+@using MudBlazor
+@using Mastermind.Components.Views
+
+
+
+
+
+<MudThemeProvider />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+
+<MudLayout Class="main-background">
+    <MudAppBar Fixed="false" Style="height: 10vh; opacity: 0.8; background-color: dimgrey;">
+        <MudIconButton Icon="@Icons.Material.Filled.Check" Size="Size.Large" Variant="Variant.Filled" Color="Color.Primary" />
+        <MudSpacer />
+            
+        <BullCowHeader />
+
+        <MudSpacer />
+        <MudIconButton Icon="@Icons.Material.Filled.Autorenew" Size="Size.Large" Variant="Variant.Filled" Color="Color.Error" />
+    </MudAppBar>
+    <MudSpacer />
+    <MudContainer Style="">
+        @Body
+    </MudContainer>
+    <MudSpacer />
+    <MudAppBar Fixed="false" Elevation="10" Bottom="true" Style="height: 20vh; background-color: rgba(47, 79, 79, 0.8);">
+        <MudContainer>
+            <GameBoard />
+        </MudContainer>
+    </MudAppBar>
+</MudLayout>
+
+
+

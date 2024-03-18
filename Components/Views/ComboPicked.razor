@@ -1,0 +1,41 @@
+﻿@using Mastermind.Components.ViewModels
+@inherits ComboPickedVM
+
+<MudContainer Fixed="true" Style="width: 100vw; height: 50px; background-color: rgba(102,185,102,0.8);">
+	<MudStack Row="true" Spacing="1" AlignItems="AlignItems.Center" Style="height: 100%;">
+		<MudIconButton 
+			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+			Style="@($"{colorDictionary[Combo[0]]} height: 45px; width: 45px;")" />
+		<MudIconButton 
+			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+			Style="@($"{colorDictionary[Combo[1]]} height: 45px; width: 45px;")" />
+		<MudIconButton 
+			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+			Style="@($"{colorDictionary[Combo[2]]} height: 45px; width: 45px;")" />
+		<MudIconButton 
+			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+			Style="@($"{colorDictionary[Combo[3]]} height: 45px; width: 45px;")" />
+
+		<MudSpacer />
+
+        <MudStack
+            AlignItems="AlignItems.Center" Spacing=0 Justify="Justify.Center">
+				<MudStack Row="true" Spacing="0" AlignItems="AlignItems.Center">
+					<MudAvatar Color="Color.Success" Style="height: 20px; width: 20px;">
+						<MudIcon Color="Color.Dark" Style="height: 18px; width: 18px;" Icon="@Icons.Material.TwoTone.LockOpen" />
+					</MudAvatar>
+					<MudPaper Elevation="12" Height="2.5vh" Width="5vw" />
+				</MudStack>
+				<MudStack Row="true" Spacing="0" AlignItems="AlignItems.Center">
+				<MudAvatar Color="Color.Warning" Style="height: 20px; width: 20px;">
+					<MudIcon Color="Color.Dark" Style="height: 18px; width: 18px;" Icon="@Icons.Material.TwoTone.Lock" />
+				</MudAvatar>
+				<MudPaper Elevation="12" Height="2.5vh" Width="5vw" />
+				</MudStack>
+        </MudStack>
+
+		<MudSpacer />
+	</MudStack>
+</MudContainer>
+
+
