@@ -12,6 +12,10 @@ namespace Mastermind.Components.ViewModels
 		public required IList<int> Combo { get; set; }
 		[Parameter]
 		public required int Attempt { get; set; }
+		[Parameter]
+		public required int Bulls { get; set; }
+		[Parameter]
+		public required int Cows { get; set; }
 
 
 

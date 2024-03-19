@@ -19,12 +19,15 @@ height: 70vh; align-self: center;
 			</MudStack>
 			@for (int i = 1; i < 8; i++)
 			{
-				@if (gameState.roundPicks.Count > 3) 
+				@if (gameState.roundPicks.Count > 3 && gameState.roundBullCows.Count > 6) 
 				{
 					var localI = i;
 					<MudStack @key=@($"attempt-{localI}") Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
 						<MudSpacer />
-						<ComboPicked Combo="@(gameState.roundPicks[localI].Values.ToArray())" Attempt="localI" colorDictionary="gameState.colorDictionary"/>
+						<ComboPicked 
+							Combo="@(gameState.roundPicks[localI].Values.ToArray())" Attempt="localI" 
+							colorDictionary="gameState.colorDictionary" Bulls="@(gameState.roundBullCows[localI]["Bulls"])" 
+							Cows="@(gameState.roundBullCows[localI]["Cows"])" />
 						<MudSpacer />
 					</MudStack>
 				}

@@ -9,7 +9,14 @@
         Random? random { get; set; }
 
         public event Func<IList<int>, Task>? NotifyPickedList;
+        public event Func<int, Task>? BullNotify;
+        public event Func<int, Task>? CowNotify;
+
         public EventHandler? PickListChanged;
+        public EventHandler? BullChanged;
+        public EventHandler? CowChanged;
+
+
         public async Task GenCode()
         {
             pickedList.Clear();
@@ -32,7 +39,9 @@
 
         public async Task GetBullCows(IList<int> comboToCheck)
         {
-            
+            CurrentBulls = 0;
+            CurrentCows = 0;
+
             for (int i = 0; i < pickedList.Count; i++)
             {
                 var pick = pickedList[i];
@@ -47,6 +56,19 @@
                 }
 
             }
+
+            BullNotify?.Invoke(CurrentBulls);
+            if (BullNotify != null)
+            {
+                BullChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            CowNotify?.Invoke(CurrentCows);
+            if (CowNotify != null)
+            {
+                CowChanged?.Invoke(this, EventArgs.Empty);
+            }
+
             await Task.Delay(1);
         }
 

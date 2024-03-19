@@ -18,27 +18,45 @@
 		public Dictionary<int, int> choiceSelection { get; set; } = new Dictionary<int, int>();
         public Dictionary<int, int> tempChoice { get; set; } = new Dictionary<int, int>();
         public Dictionary<int, Dictionary<int, int>> roundPicks { get; set; } = new Dictionary<int, Dictionary<int, int>>();
+        public Dictionary<int, Dictionary<string, int>> roundBullCows { get; set; } = new Dictionary<int, Dictionary<string, int>>();
         public int round { get; set; } = 1;
         public int firstAvailable { get; set; } = 1;
+        public int BullState { get; set; }
+        public int CowState { get; set; }
 
         public event Func<Dictionary<int, int>, Task>? choiceNotify;
         public event Func<Dictionary<int,Dictionary<int,int>>, Task>? roundNotify;
+        public event Func<Dictionary<int, Dictionary<string, int>>, Task>? roundBullCowNotify;
         public event Func<int, Task>? firstAvailableNotify;
 
         public EventHandler? choiceChanged;
         public EventHandler? roundChanged;
+        public EventHandler? roundbullCowChanged;
         public EventHandler? firstAvailableChanged;
 
-        public void FindFirstAvailable()
+        public async Task GetBulls(int value)
+        {
+            BullState = value;
+            await Task.Delay(1);
+        }
+
+        public async Task GetCows(int value)
+        {
+            CowState = value;
+            await Task.Delay(1);
+        }
+
+        public async Task FindFirstAvailable()
         {
             for(int i = 1; i <= choiceSelection.Count; i++)
             {
                 if (choiceSelection[i] == 0)
                 {
                     firstAvailable = i;
-                    return;
+                    break;
                 }
             }
+            await Task.Delay(1);
         }
 
         public async Task ResetBoard()
@@ -46,6 +64,45 @@
             round = 1;
             await GenChoiceSelection();
             await GenRoundChoice();
+        }
+
+        public async Task SetBullCow(int bull, int cow)
+        {
+            var tempBull = bull;
+            var tempCow = cow;
+            roundBullCows[round]["Bulls"] = tempBull;
+            roundBullCows[round]["Cows"] = tempCow;
+
+            roundBullCowNotify?.Invoke(roundBullCows);
+            if (roundBullCowNotify != null)
+            {
+                roundbullCowChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            await Task.Delay(1);
+        }
+
+        public async Task GenRoundBullCows()
+        {
+            roundBullCows.Clear();
+            var tempBullCow = new Dictionary<string, int>();
+            tempBullCow["Bulls"] = 0;
+            tempBullCow["Cows"] = 0;
+            roundBullCows[1] = tempBullCow;
+            roundBullCows[2] = tempBullCow;
+            roundBullCows[3] = tempBullCow;
+            roundBullCows[4] = tempBullCow;
+            roundBullCows[5] = tempBullCow;
+            roundBullCows[6] = tempBullCow;
+            roundBullCows[7] = tempBullCow;
+
+            roundBullCowNotify?.Invoke(roundBullCows);
+            if (roundBullCowNotify != null)
+            {
+                roundbullCowChanged?.Invoke(this, EventArgs.Empty);
+            }
+
+            await Task.Delay(1);
         }
 
         public async Task GenRoundChoice()
@@ -109,7 +166,7 @@
             {
                 choiceChanged?.Invoke(this, EventArgs.Empty);
             }
-            await Task.Delay(1);
+            await FindFirstAvailable();
         }
 		public async Task SetChoiceOne(int choice)
 		{

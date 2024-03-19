@@ -38,7 +38,7 @@ namespace Mastermind.Components.ViewModels
 					await gameState.SetChoiceFour(0);
 					break;
 			}
-			gameState.FindFirstAvailable();
+			await gameState.FindFirstAvailable();
 		}
 
 	}
