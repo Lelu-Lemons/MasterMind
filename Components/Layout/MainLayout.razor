@@ -2,7 +2,7 @@
 @inherits LayoutComponentBase
 @using MudBlazor
 @using Mastermind.Components.Views
-
+@using Mastermind.Components.Services
 
 
 
@@ -20,7 +20,7 @@
         <BullCowHeader />
 
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Material.Filled.Autorenew" Size="Size.Large" Variant="Variant.Filled" Color="Color.Error" />
+        <MudIconButton OnClick="ResetGame" Icon="@Icons.Material.Filled.Autorenew" Size="Size.Large" Variant="Variant.Filled" Color="Color.Error" />
     </MudAppBar>
     <MudSpacer />
     <MudContainer Style="">
@@ -34,5 +34,17 @@
     </MudAppBar>
 </MudLayout>
 
+
+@code{
+    [Inject]
+    public required GameStateService gameState { get; set; }
+    [Inject]
+    public required LockSmithService lockSmith { get; set; }
+    public async Task ResetGame()
+    {
+        await lockSmith.GenCode();
+        await gameState.ResetBoard();
+    }
+}
 
 

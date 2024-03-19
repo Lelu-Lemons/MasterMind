@@ -7,11 +7,20 @@ namespace Mastermind.Components.ViewModels
 	{
 		[Inject]
 		public required GameStateService gameState { get; set; }
+		[Inject]
+		public required LockSmithService lockSmith { get; set; }
 		[Parameter]
 		public required Dictionary<int, string> colorDictionary { get; set; }
 		[Parameter]
 		public required IList<int> Combo { get; set; }
+		
 
+		public async Task SubmitCombo()
+		{
+			await lockSmith.GetBullCows(Combo);
+			await gameState.SetRoundChoice(Combo);
+			await Task.Delay(1);
+		}
 		public async Task ResetChoice(int choice)
 		{
 			switch (choice)

@@ -4,6 +4,8 @@
     {
         private IList<int> pickedList { get; set; } = new List<int>();
         // Gen Code
+        public int CurrentBulls { get; set; } = 0;
+        public int CurrentCows { get; set; } = 0;
         Random? random { get; set; }
 
         public event Func<IList<int>, Task>? NotifyPickedList;
@@ -24,6 +26,26 @@
             foreach (var num in pickedList)
             {
                 Console.WriteLine(num);
+            }
+            await Task.Delay(1);
+        }
+
+        public async Task GetBullCows(IList<int> comboToCheck)
+        {
+            
+            for (int i = 0; i < pickedList.Count; i++)
+            {
+                var pick = pickedList[i];
+                var comboPick = comboToCheck[i];
+                if (pick == comboPick)
+                {
+                    CurrentBulls++;
+                }
+                else if (pickedList.Contains(comboPick)) 
+                {
+                    CurrentCows++;   
+                }
+
             }
             await Task.Delay(1);
         }

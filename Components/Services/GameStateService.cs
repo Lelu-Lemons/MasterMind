@@ -16,7 +16,8 @@
 		};
 
 		public Dictionary<int, int> choiceSelection { get; set; } = new Dictionary<int, int>();
-		public Dictionary<int, Dictionary<int, int>> roundPicks { get; set; } = new Dictionary<int, Dictionary<int, int>>();
+        public Dictionary<int, int> tempChoice { get; set; } = new Dictionary<int, int>();
+        public Dictionary<int, Dictionary<int, int>> roundPicks { get; set; } = new Dictionary<int, Dictionary<int, int>>();
         public int round { get; set; } = 1;
         public int firstAvailable { get; set; } = 1;
 
@@ -40,24 +41,68 @@
             }
         }
 
-        public async Task SetRoundChoice(Dictionary<int, int> roundChoice)
+        public async Task ResetBoard()
         {
-            roundPicks[this.round] = roundChoice;
+            round = 1;
+            await GenChoiceSelection();
+            await GenRoundChoice();
+        }
+
+        public async Task GenRoundChoice()
+        {
+            Console.WriteLine("round gen");
+            tempChoice[1] = 0;
+            tempChoice[2] = 0;
+            tempChoice[3] = 0;
+            tempChoice[4] = 0;
+            roundPicks[1] = tempChoice;
+            roundPicks[2] = tempChoice;
+            roundPicks[3] = tempChoice;
+            roundPicks[4] = tempChoice;
+            roundPicks[5] = tempChoice;
+            roundPicks[6] = tempChoice;
+            roundPicks[7] = tempChoice;
+
+			roundNotify?.Invoke(roundPicks);
+			if (roundNotify != null)
+			{
+				roundChanged?.Invoke(this, EventArgs.Empty);
+			}
+			await Task.Delay(1);
+		}
+
+        public async Task SetRoundChoice(IList<int> Combo)
+        {
+            var tempRound = round;
+            var tempCombo = new Dictionary<int, int>();
+            tempCombo[0] = Combo[0];
+            tempCombo[1] = Combo[1];
+            tempCombo[2] = Combo[2];
+            tempCombo[3] = Combo[3];
+            roundPicks[tempRound] = tempCombo;
 
             roundNotify?.Invoke(roundPicks);
             if (roundNotify != null)
             {
                 roundChanged?.Invoke(this, EventArgs.Empty);
             }
+            round += 1;
             await Task.Delay(1);
-        }
+			await GenChoiceSelection();
+		}
+
+        public async Task QuickChoiceGen()
+        {
+			choiceSelection.Clear();
+			choiceSelection[1] = 0;
+			choiceSelection[2] = 0;
+			choiceSelection[3] = 0;
+			choiceSelection[4] = 0;
+            await Task.Delay(1);
+		}
         public async Task GenChoiceSelection()
         {
-            choiceSelection.Clear();
-            choiceSelection[1] = 0;
-            choiceSelection[2] = 0;
-            choiceSelection[3] = 0;
-            choiceSelection[4] = 0;
+            await QuickChoiceGen();
 
             choiceNotify?.Invoke(choiceSelection);
             if (choiceNotify != null)

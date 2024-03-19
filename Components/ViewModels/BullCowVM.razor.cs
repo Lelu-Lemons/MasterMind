@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Mastermind.Components.Services;
+using Microsoft.AspNetCore.Components;
 
 namespace Mastermind.Components.ViewModels
 {
@@ -6,6 +7,8 @@ namespace Mastermind.Components.ViewModels
     {
         public bool BullInfoOpen { get; set; } = false;
         public bool CowInfoOpen { get; set; } = false;
+       
+        
         public void ToggleBullOpen()
         {
             BullInfoOpen = true;

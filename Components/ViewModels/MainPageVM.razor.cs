@@ -28,11 +28,19 @@ namespace Mastermind.Components.ViewModels
 			});
 		}
 
+		public async Task OnRoundNotify(Dictionary<int,Dictionary<int,int>> round)
+		{
+			await InvokeAsync(() =>
+			{
+				StateHasChanged();
+			});
+		}
+
 		protected override async Task OnInitializedAsync()
 		{
 			lockSmith.NotifyPickedList += OnPickListNotify;
 			gameState.choiceNotify += OnChoiceNotify;
-			
+			gameState.roundNotify += OnRoundNotify;
 			await Task.Delay(1);
 		}
 
@@ -42,12 +50,15 @@ namespace Mastermind.Components.ViewModels
 			{
 				await lockSmith.GenCode();
 				await gameState.GenChoiceSelection();
+				await gameState.GenRoundChoice();
 			}
 		}
 
 		public void Dispose()
 		{
 			lockSmith.NotifyPickedList -= OnPickListNotify;
+			gameState.choiceNotify -= OnChoiceNotify;
+			gameState.roundNotify -= OnRoundNotify;
 		}
 	}
 }

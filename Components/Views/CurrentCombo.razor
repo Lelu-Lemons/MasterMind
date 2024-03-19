@@ -1,7 +1,7 @@
 ﻿@using Mastermind.Components.ViewModels
 @inherits CurrentComboVM
 
-<MudContainer Fixed="true" Style="width: 100vw; height: 50px; background-color: rgba(102,185,102,0.8);">
+<MudContainer Fixed="true" Style="width: 100vw; height: 50px; background-color: rgba(102,185,102,0.8); border-bottom: 3px outset darkgreen;">
 	<MudStack Row="true" Spacing="1" AlignItems="AlignItems.Center" Style="height: 100%;">
 		<MudIconButton 
 			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(1)"
@@ -20,11 +20,18 @@
 
         <MudStack
             AlignItems="AlignItems.Center" Spacing=0 Justify="Justify.Center">
-			<MudButton 
+@* 			<MudButtonGroup VerticalAlign="true" OverrideStyles="false"> *@
+			<MudButton OnClick="SubmitCombo"
 				Variant="Variant.Filled" StartIcon="@Icons.Material.Filled.Check" IconSize="Size.Small" 
 				Style="font-size: xx-small; padding: 5px;" Color="Color.Primary">
 				Submit
 			</MudButton>
+@* 				<MudButton 
+					Variant="Variant.Filled" EndIcon="@Icons.Material.Filled.Clear" IconSize="Size.Small"
+					Style="font-size: xx-small; padding: 0px;" Color="Color.Error">
+				Reset
+			</MudButton>
+			</MudButtonGroup> *@
         </MudStack>
 
 		<MudSpacer />

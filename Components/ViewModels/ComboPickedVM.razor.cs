@@ -10,6 +10,8 @@ namespace Mastermind.Components.ViewModels
 		public required Dictionary<int, string> colorDictionary { get; set; }
 		[Parameter]
 		public required IList<int> Combo { get; set; }
+		[Parameter]
+		public required int Attempt { get; set; }
 
 
 
