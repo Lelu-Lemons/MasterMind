@@ -3,8 +3,8 @@
 
 
 <MudContainer Style="border: 4px ridge darkblue; height: 100%; background-color: rgba(47, 79, 79, 0.7); opacity: 1; margin-top: 12vh;">
-	<MudStack Row="true" Spacing="0">
-		<MudStack Spacing="0" >
+	<MudStack Row="true" Spacing="0" Justify="Justify.Center" AlignItems="AlignItems.Center">
+		<MudStack Spacing="0" Justify="Justify.Center" AlignItems="AlignItems.Center">
 			<MudStack Row="true" Style="margin-top: 10px;" Justify="Justify.Center" Spacing="2">
 				<MudIconButton 
 					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(1)"
@@ -33,10 +33,6 @@
 					DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => SetChoice(8)"
 					Style="background-color: rgb(163, 109, 8); color: rgb(255, 179, 36);" />
 			</MudStack>
-		</MudStack>
-		<MudStack Spacing="6" Style="margin-left: 15px;" AlignItems="AlignItems.Center" Justify="Justify.Center">
-			
-			<MudIconButton Icon="@Icons.Material.Filled.Check" Size="Size.Small" Variant="Variant.Filled" Color="Color.Primary" />
 		</MudStack>
 	</MudStack>
 </MudContainer>

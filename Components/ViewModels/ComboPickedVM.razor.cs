@@ -6,6 +6,8 @@ namespace Mastermind.Components.ViewModels
 {
 	public class ComboPickedVM: ComponentBase
 	{
+		[Inject]
+		public required GameStateService gameState { get; set; }
 		[Parameter]
 		public required Dictionary<int, string> colorDictionary { get; set; }
 		[Parameter]
@@ -17,6 +19,19 @@ namespace Mastermind.Components.ViewModels
 		[Parameter]
 		public required int Cows { get; set; }
 
+
+/*		public async Task OnRoundNotify(Dictionary<int, Dictionary<string,int>> round)
+		{
+			await InvokeAsync(() =>
+			{
+				StateHasChanged();
+			});
+		}
+		protected override async Task OnInitializedAsync()
+		{
+			gameState.roundBullCowNotify += OnRoundNotify;
+			await Task.Delay(1);
+		}*/
 
 
 

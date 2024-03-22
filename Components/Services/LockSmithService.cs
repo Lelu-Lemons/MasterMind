@@ -1,4 +1,6 @@
-﻿namespace Mastermind.Components.Services
+﻿using System.Collections;
+
+namespace Mastermind.Components.Services
 {
     public class LockSmithService: IDisposable
     {
@@ -56,6 +58,7 @@
                 }
 
             }
+            
 
             BullNotify?.Invoke(CurrentBulls);
             if (BullNotify != null)

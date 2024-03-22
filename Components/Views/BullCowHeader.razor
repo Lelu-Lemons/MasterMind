@@ -30,7 +30,9 @@
 
         </MudPopover>
     </MudBadge>
-    <MudPaper Elevation="12" Height="5vh" Width="10vw" />
+    <MudPaper Elevation="12" Height="5vh" Width="10vw" Style="padding-bottom: 40px;">
+        <MudText Typo="Typo.h4" Align="Align.Center">@gameState.BullState</MudText>
+    </MudPaper>
 </MudStack>
 
 <MudSpacer />
@@ -58,13 +60,17 @@
                     Align="Align.Center" Class="ma-2" Color="Color.Info" 
                     GutterBottom="true" Typo="Typo.caption"
                 >
-                    Amount Guessed correct, and in the correct order
+                    Amount Guessed correct, and <span style="color: red">NOT</span> in the correct order
                 </MudText>
             </MudStack>
 
         </MudPopover>
     </MudBadge>
-    <MudPaper Elevation="12" Height="5vh" Width="10vw" Style="opacity: 1;" />
+    <MudPaper Elevation="12" Height="5vh" Width="10vw" Style="opacity: 1; padding-bottom: 40px;">
+        <MudText Typo="Typo.h4" Align="Align.Center" GutterBottom="true">
+            @gameState.CowState
+        </MudText>
+    </MudPaper>
 
 </MudStack>
 

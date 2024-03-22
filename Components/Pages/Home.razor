@@ -7,32 +7,50 @@
 display: flex; background-color: rgba(0,128,0, 0.8); 
 height: 70vh; align-self: center;
 ">
-		<MudStack Spacing="1" Style="width: 100%;">
+	<MudStack Spacing="1" Style="width: 100%;">
+		<MudSpacer />
+		<MudStack Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
+		@if (gameState.choiceSelection.Count > 1)
+		{
 			<MudSpacer />
-			<MudStack Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
-			@if (gameState.choiceSelection.Count > 1)
-			{
-				<MudSpacer />
-				<CurrentCombo Combo="@(gameState.choiceSelection.Values.ToArray())" colorDictionary="gameState.colorDictionary" />
-				<MudSpacer />
-			}
-			</MudStack>
+			<CurrentCombo Combo="@(gameState.choiceSelection.Values.ToArray())" colorDictionary="gameState.colorDictionary" />
+			<MudSpacer />
+		}
+		</MudStack>
+
+		@if (gameState.roundBullCows.Count > 6) 
+		{
 			@for (int i = 1; i < 8; i++)
 			{
-				@if (gameState.roundPicks.Count > 3 && gameState.roundBullCows.Count > 6) 
-				{
-					var localI = i;
-					<MudStack @key=@($"attempt-{localI}") Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
+				var localI = i;
+				<MudStack @key=@($"attempt-{localI}") Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
+					<MudSpacer />
+					<ComboPicked
+						Combo="@(gameState.roundPicks[localI].Values.ToArray())" Attempt="localI" 
+						colorDictionary="gameState.colorDictionary" Bulls="@(gameState.roundBullCows[localI]["Bulls"])" 
+						Cows="@(gameState.roundBullCows[localI]["Cows"])" />
+					<MudSpacer />
+				</MudStack>
+			}
+		}
+		<MudSpacer />
+	</MudStack>
+	<MudOverlay Visible="gameState.gameOver" DarkBackground="true">
+		<MudPopover Open="gameState.gameOver" AnchorOrigin="Origin.CenterCenter" TransformOrigin="Origin.CenterCenter">
+			<MudPaper Height="40vh" Width="50vw" Style="opacity: 0.8; background-color: dimgrey; padding-left: 5px; padding-right: 5px;">
+				<MudStack Class="pt-5">
+					<MudText Typo="Typo.h4" Align="Align.Center" Style="color: black">
+						@(gameState.winState == true ? "Congrats You Won!" : "Sorry You Lost, Please Try Again")
+					</MudText>
+					<MudStack Row="true" Class="mt-2 pt-2">
 						<MudSpacer />
-						<ComboPicked 
-							Combo="@(gameState.roundPicks[localI].Values.ToArray())" Attempt="localI" 
-							colorDictionary="gameState.colorDictionary" Bulls="@(gameState.roundBullCows[localI]["Bulls"])" 
-							Cows="@(gameState.roundBullCows[localI]["Cows"])" />
+						<MudButton 
+							OnClick="ResetGame" Variant="Variant.Filled" Color="Color.Error" 
+							Style="width: 100px;">Reset</MudButton>
 						<MudSpacer />
 					</MudStack>
-				}
-			}
-			<MudSpacer />
-		</MudStack>
-	}
+				</MudStack>
+			</MudPaper>
+		</MudPopover>
+	</MudOverlay>
 </MudContainer>

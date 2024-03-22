@@ -10,7 +10,11 @@ namespace Mastermind.Components.ViewModels
 		[Inject]
 		public required GameStateService gameState { get; set; }
 
-
+		public async Task ResetGame()
+		{
+			await lockSmith.GenCode();
+			await gameState.ResetBoard();
+		}
 
 		public async Task OnPickListNotify(IList<int> list)
 		{
@@ -30,9 +34,7 @@ namespace Mastermind.Components.ViewModels
 
 		public async Task OnRoundNotify(Dictionary<int,Dictionary<int,int>> round)
 		{
-			var currentBull = gameState.BullState;
-			var currentCow = gameState.CowState;
-			await gameState.SetBullCow(currentBull, currentCow);
+			await gameState.SetBullCow();
 			await InvokeAsync(() =>
 			{
 				StateHasChanged();
@@ -65,6 +67,22 @@ namespace Mastermind.Components.ViewModels
 			});
 		}
 
+		public async Task OnGameOverNotify(bool value)
+		{
+			await InvokeAsync(() =>
+			{
+				StateHasChanged();
+			});
+		}
+
+		public async Task OnWinStateNotify(bool value)
+		{
+			await InvokeAsync(() =>
+			{
+				StateHasChanged();
+			});
+		}
+
 		protected override async Task OnInitializedAsync()
 		{
 			lockSmith.NotifyPickedList += OnPickListNotify;
@@ -74,6 +92,8 @@ namespace Mastermind.Components.ViewModels
 			gameState.choiceNotify += OnChoiceNotify;
 			gameState.roundNotify += OnRoundNotify;
 			gameState.roundBullCowNotify += OnRoundBullCowNotify;
+			gameState.gameOverNotify += OnGameOverNotify;
+			gameState.winStateNotify += OnWinStateNotify;
 			await Task.Delay(1);
 		}
 
@@ -98,6 +118,8 @@ namespace Mastermind.Components.ViewModels
 			gameState.choiceNotify -= OnChoiceNotify;
 			gameState.roundNotify -= OnRoundNotify;
 			gameState.roundBullCowNotify -= OnRoundBullCowNotify;
+			gameState.gameOverNotify -= OnGameOverNotify;
+			gameState.winStateNotify -= OnWinStateNotify;
 		}
 	}
 }

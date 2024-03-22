@@ -20,29 +20,53 @@
         public Dictionary<int, Dictionary<int, int>> roundPicks { get; set; } = new Dictionary<int, Dictionary<int, int>>();
         public Dictionary<int, Dictionary<string, int>> roundBullCows { get; set; } = new Dictionary<int, Dictionary<string, int>>();
         public int round { get; set; } = 1;
+        public bool gameOver { get; set; } = false;
+        public bool winState { get; set; } = false;
         public int firstAvailable { get; set; } = 1;
         public int BullState { get; set; }
         public int CowState { get; set; }
+        public Dictionary<string, int> BullCowSingleRound { get; set; } = new Dictionary<string, int>();
 
         public event Func<Dictionary<int, int>, Task>? choiceNotify;
         public event Func<Dictionary<int,Dictionary<int,int>>, Task>? roundNotify;
         public event Func<Dictionary<int, Dictionary<string, int>>, Task>? roundBullCowNotify;
         public event Func<int, Task>? firstAvailableNotify;
+        public event Func<bool, Task>? gameOverNotify;
+        public event Func<bool, Task>? winStateNotify;
+        public event Func<int, Task>? bullNotify;
+        public event Func<int, Task>? cowNotify;
 
         public EventHandler? choiceChanged;
         public EventHandler? roundChanged;
         public EventHandler? roundbullCowChanged;
         public EventHandler? firstAvailableChanged;
+        public EventHandler? gameOverChanged;
+        public EventHandler? winStateChanged;
+        public event EventHandler? bullStateChanged;
+        public event EventHandler? cowStateChanged;
 
         public async Task GetBulls(int value)
         {
             BullState = value;
+            BullCowSingleRound["Bulls"] = BullState;
+            bullNotify?.Invoke(BullState);
+            if (bullNotify != null)
+            {
+                bullStateChanged?.Invoke(this, EventArgs.Empty);
+            }
             await Task.Delay(1);
         }
 
         public async Task GetCows(int value)
         {
             CowState = value;
+            BullCowSingleRound["Cows"] = CowState;
+            cowNotify?.Invoke(CowState);
+            if (cowNotify != null)
+            {
+                cowStateChanged?.Invoke(this, EventArgs.Empty);
+            }
+
             await Task.Delay(1);
         }
 
@@ -62,16 +86,36 @@
         public async Task ResetBoard()
         {
             round = 1;
+            BullCowSingleRound.Clear();
+            await GetBulls(0);
+            await GetCows(0);
+            gameOver = false;
+            winState = false;
             await GenChoiceSelection();
             await GenRoundChoice();
+            await GenRoundBullCows();
+
+            gameOverNotify?.Invoke(gameOver);
+            if (gameOverNotify != null)
+            {
+                gameOverChanged?.Invoke(this, EventArgs.Empty);
+            }
+            winStateNotify?.Invoke(winState);
+            if (winStateNotify != null)
+            {
+                winStateChanged?.Invoke(this, EventArgs.Empty);
+            }
         }
 
-        public async Task SetBullCow(int bull, int cow)
+        public async Task SetBullCow()
         {
-            var tempBull = bull;
-            var tempCow = cow;
-            roundBullCows[round]["Bulls"] = tempBull;
-            roundBullCows[round]["Cows"] = tempCow;
+            Console.WriteLine("set bull cow");
+            var tempRound = round;
+
+            var tempDict = new Dictionary<string, int>();
+            tempDict["Bulls"] = BullCowSingleRound["Bulls"];
+            tempDict["Cows"] = BullCowSingleRound["Cows"];
+            roundBullCows[tempRound] = tempDict;
 
             roundBullCowNotify?.Invoke(roundBullCows);
             if (roundBullCowNotify != null)
@@ -79,7 +123,25 @@
                 roundbullCowChanged?.Invoke(this, EventArgs.Empty);
             }
 
-            await Task.Delay(1);
+            if (BullCowSingleRound["Bulls"] == 4 || tempRound == 7)
+            {
+                gameOver = true;
+                if (BullCowSingleRound["Bulls"] == 4)
+                {
+                    winState = true;
+                    winStateNotify?.Invoke(winState);
+                    if (winStateNotify != null)
+                    {
+                        winStateChanged?.Invoke(this, EventArgs.Empty);
+                    }
+                }
+			}
+			gameOverNotify?.Invoke(gameOver);
+			if (gameOverNotify != null)
+			{
+				gameOverChanged?.Invoke(this, EventArgs.Empty);
+			}
+			await Task.Delay(1);
         }
 
         public async Task GenRoundBullCows()

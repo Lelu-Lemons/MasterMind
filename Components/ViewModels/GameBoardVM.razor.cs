@@ -25,7 +25,7 @@ namespace Mastermind.Components.ViewModels
                     await gameState.SetChoiceFour(choice);  
                     break;
             }
-            gameState.FindFirstAvailable();
+            await gameState.FindFirstAvailable();
         }
 
         public async Task OnFirstAvailNotify(int value)
@@ -35,6 +35,8 @@ namespace Mastermind.Components.ViewModels
                 StateHasChanged();
             });
         }
+
+
 
 		protected override async Task OnInitializedAsync()
 		{
