@@ -13,7 +13,7 @@ height: 70vh; align-self: center;
 		@if (gameState.choiceSelection.Count > 1)
 		{
 			<MudSpacer />
-			<CurrentCombo Combo="@(gameState.choiceSelection.Values.ToArray())" colorDictionary="gameState.colorDictionary" />
+			<CurrentCombo Combo="@(gameState.choiceSelection.Values.ToArray())" colorDictionary="gameState.colorDictionary" AccessibilityState="AccessibilityState" />
 			<MudSpacer />
 		}
 		</MudStack>
@@ -26,7 +26,7 @@ height: 70vh; align-self: center;
 				<MudStack @key=@($"attempt-{localI}") Row="true" Justify="Justify.Center" Spacing="0" Style="width: 100%; padding-top: 2px;">
 					<MudSpacer />
 					<ComboPicked
-						Combo="@(gameState.roundPicks[localI].Values.ToArray())" Attempt="localI" 
+						Combo="@(gameState.roundPicks[localI].Values.ToArray())" Attempt="localI" AccessibilityState="AccessibilityState"
 						colorDictionary="gameState.colorDictionary" Bulls="@(gameState.roundBullCows[localI]["Bulls"])" 
 						Cows="@(gameState.roundBullCows[localI]["Cows"])" />
 					<MudSpacer />

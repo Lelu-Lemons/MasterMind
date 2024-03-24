@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace Mastermind.Components.ViewModels
 {
-    public class BullCowVM : ComponentBase
+    public class BullCowVM : ComponentBase 
     {
         [Inject]
         public required GameStateService gameState { get; set; }

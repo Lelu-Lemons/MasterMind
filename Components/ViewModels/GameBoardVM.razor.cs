@@ -7,8 +7,12 @@ namespace Mastermind.Components.ViewModels
     {
         [Inject]
         public required GameStateService gameState { get; set; }
+        [Inject]
+        public required AccessibilityService accessService { get; set; }
 
-        public async Task SetChoice(int choice)
+        public bool AccessibilityOn { get; set; } = false;
+
+        public async Task SetChoice(int choice) // SET INDIVIUAL CHOICE SELECTION
         {
             switch (gameState.firstAvailable)
             {
@@ -36,11 +40,21 @@ namespace Mastermind.Components.ViewModels
             });
         }
 
+        public async Task OnAccessibilityNotify(bool value)
+        {
+            AccessibilityOn = value;
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
+        }
 
 
 		protected override async Task OnInitializedAsync()
 		{
             gameState.firstAvailableNotify += OnFirstAvailNotify;
+            accessService.AccessibilityNotify += OnAccessibilityNotify;
+            
             await Task.Delay(1);
 		}
 	}

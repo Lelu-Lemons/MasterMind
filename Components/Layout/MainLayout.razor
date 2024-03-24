@@ -1,9 +1,7 @@
-﻿
-@inherits LayoutComponentBase
-@using MudBlazor
+﻿@using MudBlazor
 @using Mastermind.Components.Views
 @using Mastermind.Components.Services
-
+@inherits MainLayoutVM
 
 
 
@@ -14,6 +12,9 @@
 
 <MudLayout Class="main-background">
     <MudAppBar Fixed="false" Style="height: 10vh; opacity: 0.8; background-color: dimgrey;">
+        <MudSwitch 
+            Value="AccessibilityOn" Size="Size.Large" Color="Color.Info" ThumbIcon="@Icons.Material.Filled.Accessibility" 
+            ThumbIconColor="Color.Primary" DisableRipple="true" ValueChanged="ChangeAccessibility" T="bool" />
         <MudSpacer />
             
         <BullCowHeader />
@@ -34,16 +35,5 @@
 </MudLayout>
 
 
-@code{
-    [Inject]
-    public required GameStateService gameState { get; set; }
-    [Inject]
-    public required LockSmithService lockSmith { get; set; }
-    public async Task ResetGame()
-    {
-        await lockSmith.GenCode();
-        await gameState.ResetBoard();
-    }
-}
 
 

@@ -13,15 +13,17 @@ namespace Mastermind.Components.ViewModels
 		public required Dictionary<int, string> colorDictionary { get; set; }
 		[Parameter]
 		public required IList<int> Combo { get; set; }
-		
+		[Parameter]
+		public bool AccessibilityState { get; set; }
 
-		public async Task SubmitCombo()
+
+		public async Task SubmitCombo() // CHECK BULL COWS AND SET ROUND SELECTION
 		{
 			await lockSmith.GetBullCows(Combo);
 			await gameState.SetRoundChoice(Combo);
 			await Task.Delay(1);
 		}
-		public async Task ResetChoice(int choice)
+		public async Task ResetChoice(int choice) // RESET INDIVIDUAL CHOICE SELECTION 
 		{
 			switch (choice)
 			{
@@ -38,7 +40,7 @@ namespace Mastermind.Components.ViewModels
 					await gameState.SetChoiceFour(0);
 					break;
 			}
-			await gameState.FindFirstAvailable();
+			await gameState.FindFirstAvailable(); 
 		}
 
 	}

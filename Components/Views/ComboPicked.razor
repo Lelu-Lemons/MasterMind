@@ -3,18 +3,34 @@
 
 <MudContainer Fixed="true" Style="width: 100vw; height: 50px; background-color: rgba(102,185,102,0.8);">
 	<MudStack Row="true" Spacing="1" AlignItems="AlignItems.Center" Style="height: 100%;">
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
-			Style="@($"{colorDictionary[Combo[0]]} height: 45px; width: 45px;")" />
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
-			Style="@($"{colorDictionary[Combo[1]]} height: 45px; width: 45px;")" />
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
-			Style="@($"{colorDictionary[Combo[2]]} height: 45px; width: 45px;")" />
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
-			Style="@($"{colorDictionary[Combo[3]]} height: 45px; width: 45px;")" />
+		@if (!AccessibilityState)
+		{
+			<MudIconButton DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+						   Style="@($"{colorDictionary[Combo[0]]} height: 45px; width: 45px;")" />
+			<MudIconButton DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+						   Style="@($"{colorDictionary[Combo[1]]} height: 45px; width: 45px;")" />
+			<MudIconButton DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+						   Style="@($"{colorDictionary[Combo[2]]} height: 45px; width: 45px;")" />
+			<MudIconButton DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb"
+						   Style="@($"{colorDictionary[Combo[3]]} height: 45px; width: 45px;")" />
+		}
+		@if (AccessibilityState)
+		{
+			var colorString = $"{colorDictionary[(Attempt + 10)]} height: 45px; max-width: 45px; min-width: 45px; border-radius: 100%;";
+			<MudButton DisableRipple="true" Style="@colorString">
+				<MudText Typo="Typo.h5">@(Combo[0])</MudText>
+			</MudButton>
+			<MudButton DisableRipple="true" Style="@colorString">
+				<MudText Typo="Typo.h5">@(Combo[1])</MudText>
+			</MudButton>
+			<MudButton DisableRipple="true" Style="@colorString">
+				<MudText Typo="Typo.h5">@(Combo[2])</MudText>
+			</MudButton>
+			<MudButton DisableRipple="true" Style="@colorString">
+				<MudText Typo="Typo.h5">@(Combo[3])</MudText>
+			</MudButton>
+		}
+
 
 		<MudSpacer />
 

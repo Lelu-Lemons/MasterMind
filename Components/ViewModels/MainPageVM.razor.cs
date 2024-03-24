@@ -9,19 +9,14 @@ namespace Mastermind.Components.ViewModels
 		public required LockSmithService lockSmith { get; set; }
 		[Inject]
 		public required GameStateService gameState { get; set; }
+		[Inject]
+		public required AccessibilityService accessService { get; set; }
+		public bool AccessibilityState { get; set; } = false;
 
 		public async Task ResetGame()
 		{
 			await lockSmith.GenCode();
 			await gameState.ResetBoard();
-		}
-
-		public async Task OnPickListNotify(IList<int> list)
-		{
-			await InvokeAsync(() =>
-			{
-				StateHasChanged();
-			});
 		}
 
 		public async Task OnChoiceNotify(Dictionary<int,int> choice)
@@ -77,15 +72,23 @@ namespace Mastermind.Components.ViewModels
 
 		public async Task OnWinStateNotify(bool value)
 		{
-			await InvokeAsync(() =>
-			{
-				StateHasChanged();
-			});
-		}
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
+        }
+
+		public async Task OnAccessibilityNotify(bool value)
+		{
+			AccessibilityState = value;
+            await InvokeAsync(() =>
+            {
+                StateHasChanged();
+            });
+        }
 
 		protected override async Task OnInitializedAsync()
 		{
-			lockSmith.NotifyPickedList += OnPickListNotify;
 			lockSmith.BullNotify += OnBullNotify;
 			lockSmith.CowNotify += OnCowNotify;
 
@@ -94,12 +97,14 @@ namespace Mastermind.Components.ViewModels
 			gameState.roundBullCowNotify += OnRoundBullCowNotify;
 			gameState.gameOverNotify += OnGameOverNotify;
 			gameState.winStateNotify += OnWinStateNotify;
+
+			accessService.AccessibilityNotify += OnAccessibilityNotify;
 			await Task.Delay(1);
 		}
 
 		protected override async void OnAfterRender(bool firstRender)
 		{
-			if (firstRender)
+			if (firstRender) // START GAME GEN DATA
 			{
 				await lockSmith.GenCode();
 				await gameState.GenChoiceSelection();
@@ -110,7 +115,6 @@ namespace Mastermind.Components.ViewModels
 
 		public void Dispose()
 		{
-			lockSmith.NotifyPickedList -= OnPickListNotify;
 			lockSmith.BullNotify -= OnBullNotify;
 			lockSmith.CowNotify -= OnCowNotify;
 
@@ -120,6 +124,8 @@ namespace Mastermind.Components.ViewModels
 			gameState.roundBullCowNotify -= OnRoundBullCowNotify;
 			gameState.gameOverNotify -= OnGameOverNotify;
 			gameState.winStateNotify -= OnWinStateNotify;
+
+			accessService.AccessibilityNotify -= OnAccessibilityNotify;
 		}
 	}
 }

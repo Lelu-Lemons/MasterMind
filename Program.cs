@@ -10,6 +10,7 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddScoped<LockSmithService>();
 builder.Services.AddScoped<GameStateService>();
+builder.Services.AddScoped<AccessibilityService>();
 
 var app = builder.Build();
 

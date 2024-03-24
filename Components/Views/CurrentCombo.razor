@@ -3,19 +3,37 @@
 
 <MudContainer Fixed="true" Style="width: 100vw; height: 50px; background-color: rgba(102,185,102,0.8); border-bottom: 3px outset darkgreen;">
 	<MudStack Row="true" Spacing="1" AlignItems="AlignItems.Center" Style="height: 100%;">
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(1)"
-			Style="@($"{colorDictionary[Combo[0]]} height: 45px; width: 45px;")" />
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(2)"
-			Style="@($"{colorDictionary[Combo[1]]} height: 45px; width: 45px;")" />
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(3)"
-			Style="@($"{colorDictionary[Combo[2]]} height: 45px; width: 45px;")" />
-		<MudIconButton 
-			DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(4)"
-			Style="@($"{colorDictionary[Combo[3]]} height: 45px; width: 45px;")" />
-
+		@if (!AccessibilityState)
+		{
+			<MudIconButton 
+				DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(1)"
+				Style="@($"{colorDictionary[Combo[0]]} height: 45px; width: 45px;")" />
+			<MudIconButton 
+				DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(2)"
+				Style="@($"{colorDictionary[Combo[1]]} height: 45px; width: 45px;")" />
+			<MudIconButton 
+				DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(3)"
+				Style="@($"{colorDictionary[Combo[2]]} height: 45px; width: 45px;")" />
+			<MudIconButton 
+				DisableRipple="true" Icon="@Icons.Material.Filled.Lightbulb" OnClick="() => ResetChoice(4)"
+				Style="@($"{colorDictionary[Combo[3]]} height: 45px; width: 45px;")" />
+		}
+		@if (AccessibilityState)
+		{
+			var colorString = $"{colorDictionary[18]} height: 45px; max-width: 45px; min-width: 45px; border-radius: 100%;";
+			<MudButton DisableRipple="true" Style="@colorString" OnClick="() => ResetChoice(1)">
+				<MudText Typo="Typo.h5">@(Combo[0])</MudText>
+			</MudButton>
+			<MudButton DisableRipple="true" Style="@colorString" OnClick="() => ResetChoice(2)">
+				<MudText Typo="Typo.h5">@(Combo[1])</MudText>
+			</MudButton>
+			<MudButton DisableRipple="true" Style="@colorString" OnClick="() => ResetChoice(3)">
+				<MudText Typo="Typo.h5">@(Combo[2])</MudText>
+			</MudButton>
+			<MudButton DisableRipple="true" Style="@colorString" OnClick="() => ResetChoice(4)">
+				<MudText Typo="Typo.h5">@(Combo[3])</MudText>
+			</MudButton>
+		}
 		<MudSpacer />
 
         <MudStack

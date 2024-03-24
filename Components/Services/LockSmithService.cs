@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Diagnostics;
 
 namespace Mastermind.Components.Services
 {
@@ -10,17 +11,15 @@ namespace Mastermind.Components.Services
         public int CurrentCows { get; set; } = 0;
         Random? random { get; set; }
 
-        public event Func<IList<int>, Task>? NotifyPickedList;
         public event Func<int, Task>? BullNotify;
         public event Func<int, Task>? CowNotify;
 
-        public EventHandler? PickListChanged;
         public EventHandler? BullChanged;
         public EventHandler? CowChanged;
 
 
-        public async Task GenCode()
-        {
+        public async Task GenCode() // GENERATE 4 DIGIT SECRET CODE ( 1-8 )
+        {   // DOES NOT LEAVE SERVICE
             pickedList.Clear();
             random = new Random();
             while (pickedList.Count < 4)
@@ -32,15 +31,15 @@ namespace Mastermind.Components.Services
                 }
             }
 
-            foreach (var num in pickedList)
+            foreach (var num in pickedList) // DEBUG CHECK CODE
             {
-                Console.WriteLine(num);
+                Debug.WriteLine(num);
             }
             await Task.Delay(1);
         }
 
-        public async Task GetBullCows(IList<int> comboToCheck)
-        {
+        public async Task GetBullCows(IList<int> comboToCheck) // CHECK COMBO GUESSED AND RETURN BULLS AND COWS
+        {   // CHECK SET NOTIFY
             CurrentBulls = 0;
             CurrentCows = 0;
 
@@ -78,10 +77,8 @@ namespace Mastermind.Components.Services
         public void Dispose()
         {
             pickedList.Clear();
-            Console.WriteLine("failed");
             return;
         }
 
-        // Check Code, returns the bulls cow object
     }
 }
