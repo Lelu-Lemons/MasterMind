@@ -13,3 +13,4 @@
 
 ### QUICK START
 - run ```dotnet run``` or  ```dotnet watch``` to get started
+- Designed to be played in device view on the browser inspect page, Iphone SE
